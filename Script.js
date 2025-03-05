@@ -44,7 +44,7 @@ function enviarFormulario() {
         observaciones: document.getElementById("observaciones").value,
     };
 
-    fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?action=submit", {
+    fetch("https://script.google.com/macros/s/AKfycbylLd2VdHp9s0JxOLzuvGqqSphbTbS6ERJDgsHgB3QD3zfZPXvORMszvPAxXq6g09P62w/exec", {
         method: "POST",
         body: JSON.stringify(datos),
         headers: { "Content-Type": "application/json" }
