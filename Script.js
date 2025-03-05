@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function cargarDesplegables() {
-    fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?action=getOptions")
+    fetch("https://script.google.com/macros/s/AKfycbylLd2VdHp9s0JxOLzuvGqqSphbTbS6ERJDgsHgB3QD3zfZPXvORMszvPAxXq6g09P62w/exec")
         .then(response => response.json())
         .then(data => {
             llenarSelect("cultivo", data.cultivo);
