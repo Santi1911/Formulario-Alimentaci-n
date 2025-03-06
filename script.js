@@ -1,28 +1,32 @@
-document.addEventListener("DOMContentLoaded", function () {
-    fetch("https://script.google.com/macros/s/AKfycbylLd2VdHp9s0JxOLzuvGqqSphbTbS6ERJDgsHgB3QD3zfZPXvORMszvPAxXq6g09P62w/exec")
-        .then(response => response.json())
-        .then(data => {
-            console.log("Datos recibidos:", data);
+document.getElementById("form").addEventListener("submit", function(event) {
+    event.preventDefault();
 
-            llenarSelect("cultivo", data.cultivo);
-            llenarSelect("tanque", data.tanque);
-            llenarSelect("alimento", data.alimento);
-        })
-        .catch(error => console.error("Error al obtener datos:", error));
-});
+    let formData = {
+        fecha: document.getElementById("fecha").value,
+        hora: document.getElementById("hora").value,
+        cultivo: document.getElementById("cultivo").value,
+        tanque: document.getElementById("tanque").value,
+        alimento: document.getElementById("alimento").value,
+        cantidad: document.getElementById("cantidad").value,
+        temperatura: document.getElementById("temperatura").value,
+        observaciones: document.getElementById("observaciones").value
+    };
 
-function llenarSelect(id, opciones) {
-    let select = document.getElementById(id);
-    if (!select) return; // Si no existe el select, salir
-
-    select.innerHTML = ""; // Limpiar opciones anteriores
-
-    opciones.forEach(item => {
-        let option = document.createElement("option");
-        option.value = item;
-        option.textContent = item;
-        select.appendChild(option);
+    fetch("https://script.google.com/macros/s/AKfycbylLd2VdHp9s0JxOLzuvGqqSphbTbS6ERJDgsHgB3QD3zfZPXvORMszvPAxXq6g09P62w/exec", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Respuesta del servidor:", data);
+        alert("Registro guardado exitosamente.");
+        document.getElementById("form").reset();
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Error al guardar el registro.");
     });
-
-    console.log(`Opciones agregadas a ${id}:`, select.innerHTML);
-}
+});
